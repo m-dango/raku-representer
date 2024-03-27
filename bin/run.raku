@@ -7,7 +7,14 @@ unit sub MAIN (
     $output-path,
 );
 
-my $ast = $solution-path.IO.add(<lib Leap.rakumod>).slurp.AST.raku;
+my $ast = $solution-path
+    .IO
+    .add('lib')
+    .dir
+    .first({$slug.lc.subst('-').match(.extension('').basename.lc)})
+    .slurp
+    .AST
+    .raku;
 
 my %mappings = $ast
     .lines
